@@ -1,359 +1,159 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef, useEffect, useState } from 'react';
-import { CyberGrid } from './CyberGrid';
-import { Calendar, MapPin, Clock, ChevronDown, Sparkles, Terminal } from 'lucide-react';
-
-const terminalPhrases = [
-  'Building the future...',
-  '24 hours of innovation_',
-  'Code. Create. Conquer.',
-  'Where ideas become reality',
-  'Hack the impossible_',
-];
-
-const TypingTerminal = () => {
-  const [currentPhrase, setCurrentPhrase] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
-
-  useEffect(() => {
-    const phrase = terminalPhrases[currentPhrase];
-
-    if (isTyping) {
-      if (displayText.length < phrase.length) {
-        const timeout = setTimeout(() => {
-          setDisplayText(phrase.slice(0, displayText.length + 1));
-        }, 80);
-        return () => clearTimeout(timeout);
-      } else {
-        const timeout = setTimeout(() => setIsTyping(false), 2000);
-        return () => clearTimeout(timeout);
-      }
-    } else {
-      if (displayText.length > 0) {
-        const timeout = setTimeout(() => {
-          setDisplayText(displayText.slice(0, -1));
-        }, 40);
-        return () => clearTimeout(timeout);
-      } else {
-        setCurrentPhrase((prev) => (prev + 1) % terminalPhrases.length);
-        setIsTyping(true);
-      }
-    }
-  }, [displayText, isTyping, currentPhrase]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, delay: 0.6 }}
-      className="inline-flex items-center gap-2 px-3 py-2 md:px-5 md:py-3 bg-black/60 backdrop-blur-sm border border-orange-500/30 rounded-xl font-mono text-xs md:text-base max-w-[90vw]"
-    >
-      <Terminal className="w-3 h-3 md:w-4 md:h-4 text-orange-400 flex-shrink-0" />
-      <span className="text-gray-400">$</span>
-      <span className="text-orange-300 truncate">{displayText}</span>
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.8, repeat: Infinity }}
-        className="w-2 h-5 bg-orange-400"
-      />
-    </motion.div>
-  );
-};
-
-const CountdownTimer = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0,
-  });
-
-  useEffect(() => {
-    const targetDate = new Date('2026-02-28T10:00:00');
-
-    const updateTimer = () => {
-      const now = new Date();
-      const diff = targetDate.getTime() - now.getTime();
-
-      if (diff > 0) {
-        setTimeLeft({
-          days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-          minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
-          seconds: Math.floor((diff % (1000 * 60)) / 1000),
-        });
-      }
-    };
-
-    updateTimer();
-    const interval = setInterval(updateTimer, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="flex gap-2 md:gap-3">
-      {Object.entries(timeLeft).map(([key, value]) => (
-        <motion.div
-          key={key}
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 1 + Object.keys(timeLeft).indexOf(key) * 0.1 }}
-          className="relative"
-        >
-          <div className="w-14 h-14 md:w-16 md:h-16 bg-black/50 backdrop-blur-sm border border-orange-500/30 rounded-lg flex flex-col items-center justify-center relative overflow-hidden group hover:border-orange-400/60 transition-colors">
-            <div className="absolute inset-0 bg-gradient-to-b from-orange-500/10 to-transparent" />
-            <span className="font-display text-xl md:text-2xl font-bold text-orange-400 relative z-10">
-              {value.toString().padStart(2, '0')}
-            </span>
-            <span className="text-[10px] md:text-xs text-gray-500 uppercase tracking-wider relative z-10">
-              {key}
-            </span>
-          </div>
-        </motion.div>
-      ))}
-    </div>
-  );
-};
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start start', 'end start'],
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
-
-  const titleVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const letterVariants = {
-    hidden: { opacity: 0, y: 50, rotateX: -90 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      rotateX: 0,
-      transition: { duration: 0.5, ease: 'easeOut' as const },
-    },
-  };
-
-  const words = ['INNOVATE.', 'CODE.', 'CONQUER.'];
-
   return (
     <section
       id="home"
-      ref={ref}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black"
+      className="relative md:min-h-screen flex items-start md:items-center justify-center overflow-hidden bg-[#000000] pb-12 md:pb-0"
     >
-      {/* Cyber Grid Background */}
-      <div className="absolute inset-0">
-        <CyberGrid />
+      {/* Opticode 2.0 Premium Dot Grid Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: 'radial-gradient(circle at 1.5px 1.5px, rgba(255, 100, 0, 1) 1.5px, transparent 0)',
+            backgroundSize: '40px 40px'
+          }}
+        />
+        {/* Radial Mask to fade edges into pure black */}
+        <div className="absolute inset-0 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black_80%)]" />
       </div>
 
-      {/* Radial gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black opacity-50" />
+      {/* Dynamic Animated Ambient Glows */}
+      <motion.div 
+        animate={{ scale: [1, 1.05, 1], opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-1/4 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#FF4C00]/10 rounded-full blur-[120px] pointer-events-none z-0" 
+      />
+      <motion.div 
+        animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+        className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-[#00F0FF]/5 rounded-full blur-[120px] pointer-events-none z-0" 
+      />
 
-      {/* Animated corner accents */}
-      <div className="absolute top-0 left-0 w-32 h-32 border-l-2 border-t-2 border-orange-500/50" />
-      <div className="absolute top-0 right-0 w-32 h-32 border-r-2 border-t-2 border-red-500/50" />
-      <div className="absolute bottom-0 left-0 w-32 h-32 border-l-2 border-b-2 border-red-500/50" />
-      <div className="absolute bottom-0 right-0 w-32 h-32 border-r-2 border-b-2 border-orange-500/50" />
+      {/* Decorative Grid Frame matching Opticode 2.0 */}
+      <div className="absolute inset-6 md:inset-10 border border-white/5 pointer-events-none z-0 hidden sm:block">
+        <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-[#FF4C00]/20 to-transparent" />
+        
+        {/* Corner Crosshairs */}
+        <div className="absolute -top-1.5 -left-1.5 w-3 h-3 flex items-center justify-center text-[#FF4C00]/80 select-none text-[10px] font-mono">+</div>
+        <div className="absolute -top-1.5 -right-1.5 w-3 h-3 flex items-center justify-center text-[#FF4C00]/80 select-none text-[10px] font-mono">+</div>
+        <div className="absolute -bottom-1.5 -left-1.5 w-3 h-3 flex items-center justify-center text-white/30 select-none text-[10px] font-mono">+</div>
+        <div className="absolute -bottom-1.5 -right-1.5 w-3 h-3 flex items-center justify-center text-white/30 select-none text-[10px] font-mono">+</div>
+      </div>
 
-      <motion.div
-        style={{ y, opacity, scale }}
-        className="relative z-10 text-center px-4 max-w-6xl mx-auto pt-10 md:pt-12"
+      <div
+        className="relative z-10 text-center px-4 w-full pt-20 md:pt-32 flex flex-col items-center"
       >
-
-        {/* Status Badge */}
+        {/* Top Header Logos */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-gradient-to-r from-orange-500/10 to-red-500/10 backdrop-blur-sm rounded-full border border-orange-500/30 mb-2 md:mb-4"
+          transition={{ duration: 0.8 }}
+          className="flex flex-row items-center justify-center gap-4 md:gap-12 mb-3 md:mb-6 lg:mb-10 w-full shrink-0"
         >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-          </span>
-          <span className="text-orange-300 text-xs md:text-sm font-medium">Registrations Open Soon</span>
-          <Sparkles className="w-3 h-3 md:w-4 md:h-4 text-orange-400" />
+          <img src="/ISTE.png" alt="ISTE Logo" className="h-10 md:h-20 lg:h-24 w-auto object-contain" />
+          <img src="/biet-logo.png" alt="BIET Logo" className="h-12 md:h-24 lg:h-28 w-auto object-contain drop-shadow-2xl" />
+          <img src="/technical_club-removebg-preview.png" alt="Technical Club Logo" className="h-10 md:h-20 lg:h-24 w-auto object-contain" />
         </motion.div>
 
-        {/* College Branding */}
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
+        {/* College Name - Large and Prominent */}
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col items-center gap-2 mb-3 md:mb-4"
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide uppercase text-white text-center mb-1 md:mb-4 leading-tight px-2"
         >
-          {/* All Three Logos in a Row */}
-          <div className="flex items-center justify-center gap-4 md:gap-6">
-            {/* BIET Logo */}
-            <motion.img
-              src="/biet-logo.png"
-              alt="BIET Logo"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-            />
+          Bapuji Institute of Engineering and Technology
+        </motion.h2>
 
-            {/* UNICS Logo */}
-            <motion.img
-              src="/unics-logo.png"
-              alt="UNICS Logo"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-            />
-
-            {/* Binary Blooms Logo */}
-            <motion.img
-              src="/binary-blooms-logo.png"
-              alt="Binary Blooms Logo"
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.3 }}
-              className="w-12 h-12 md:w-16 md:h-16 object-contain"
-            />
-          </div>
-
-          {/* College Name */}
-          <div className="flex flex-col text-center">
-            <span className="text-[10px] md:text-xs font-semibold text-orange-400 tracking-wide">
-              BAPUJI EDUCATIONAL ASSOCIATION (REGD)
-            </span>
-            <span className="text-xs md:text-sm font-bold text-white leading-tight">
-              BAPUJI INSTITUTE OF ENGINEERING AND TECHNOLOGY
-            </span>
-          </div>
-        </motion.div>
-
-        {/* Main Title with 3D Letter Animation */}
+        {/* OPTICODE Badge */}
         <motion.div
-          variants={titleVariants}
-          initial="hidden"
-          animate="visible"
-          className="mb-2 md:mb-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="flex items-center gap-3 mb-2 md:mb-8"
         >
-          {words.map((word, wordIndex) => (
-            <div key={wordIndex} className="inline-block mx-1 md:mx-4">
-              {word.split('').map((letter, letterIndex) => (
-                <motion.span
-                  key={letterIndex}
-                  variants={letterVariants}
-                  className={`inline-block font-display text-3xl sm:text-4xl md:text-6xl lg:text-8xl font-black ${wordIndex === 0
-                    ? 'text-orange-400'
-                    : wordIndex === 1
-                      ? 'text-white'
-                      : 'bg-gradient-to-r from-red-400 via-orange-500 to-amber-400 bg-clip-text text-transparent'
-                    }`}
-                  style={{
-                    textShadow: wordIndex === 0
-                      ? '0 0 30px rgba(249, 115, 22, 0.5)'
-                      : wordIndex === 2
-                        ? '0 0 30px rgba(239, 68, 68, 0.5)'
-                        : 'none',
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </div>
-          ))}
+          <span className="flex items-center gap-2 text-[#FF4C00] text-xs md:text-sm font-medium tracking-wide uppercase">
+            OPTICODE
+            <span className="bg-[#FF4C00] text-black px-1.5 py-0.5 rounded-sm text-[9px] font-bold">2.0</span>
+          </span>
         </motion.div>
+
+        {/* Glow pill "24-Hour Hackathon" style */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="inline-flex items-center justify-center px-4 py-1 md:px-5 md:py-1.5 rounded-full border border-[#FF4C00]/20 bg-[#FF4C00]/[0.02] backdrop-blur-xl shadow-[0_0_30px_rgba(255,76,0,0.1)] mb-3 md:mb-8 transition-colors hover:border-[#FF4C00]/40"
+        >
+          <span className="text-[#FF4C00] text-xs font-mono tracking-widest uppercase">Coding Competition Registration</span>
+        </motion.div>
+
+        {/* Main Title - Opticode 2.0 Serif Style */}
+        <motion.h1
+           initial={{ opacity: 0, y: 20 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8, delay: 0.3 }}
+           className="text-4xl sm:text-7xl md:text-[6.5rem] lg:text-[8.5rem] leading-[1.05] font-medium mb-3 md:mb-10 tracking-tight text-white w-full max-w-5xl mx-auto"
+        >
+           Absolute Code <br className="hidden md:block" /> <span className="italic text-zinc-400">Minimization</span>
+        </motion.h1>
 
         {/* Subtitle */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
-          className="space-y-2 mb-3"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="max-w-2xl mx-auto mb-4 md:mb-8 px-4"
         >
-          <p className="text-xl md:text-2xl lg:text-3xl text-gray-300">
-            National Level Hackathon at{' '}
-            <span className="font-bold text-white">BIET,Davangere</span>
-          </p>
-          <p className="text-base md:text-lg text-gray-500">
-            Department of Computer Science & Engineering, under the{' '}
-            <span className="text-red-400 font-semibold">UniCS Forum</span>
+          <p className="text-sm md:text-lg text-zinc-400 leading-relaxed font-light">
+            Opticode 2.0 is the arena for engineers ready to deploy scalable, functional logic under extreme velocity. The only metric that matters is: does it work?
           </p>
         </motion.div>
 
-        {/* Typing Terminal */}
-        <div className="flex justify-center mb-4">
-          <TypingTerminal />
-        </div>
-
-        {/* Info Cards */}
+        {/* Event Date & Time */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="flex flex-col items-center gap-2 mb-3"
+          transition={{ duration: 0.8, delay: 0.45 }}
+          className="flex flex-wrap items-center justify-center gap-3 md:gap-6 mb-4 md:mb-10 px-4"
         >
-          {/* Date & Duration Card */}
-          <motion.div
-            whileHover={{ scale: 1.05, y: -3 }}
-            className="flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-sm rounded-lg border border-orange-500/30 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-500/20 transition-all duration-300 text-sm"
-          >
-            <Calendar className="w-4 h-4 text-orange-400" />
-            <span className="text-white font-medium">28 Feb - 1 Mar, 2026</span>
-            <span className="text-gray-500">|</span>
-            <Clock className="w-4 h-4 text-amber-400" />
-            <span className="text-white font-medium">24 Hours</span>
-          </motion.div>
-
-          {/* Location Card */}
-          <motion.div
-            whileHover={{ scale: 1.05, y: -3 }}
-            className="flex items-center gap-2 px-4 py-2 bg-black/50 backdrop-blur-sm rounded-lg border border-red-500/30 hover:border-red-400 hover:shadow-lg hover:shadow-red-500/20 transition-all duration-300 text-sm"
-          >
-            <MapPin className="w-4 h-4 text-red-400" />
-            <span className="text-white font-medium">BIET Davangere</span>
-          </motion.div>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02]">
+            <span className="text-[#FF4C00] text-xs font-mono tracking-wider">📅</span>
+            <span className="text-zinc-300 text-xs md:text-sm font-medium tracking-wide">1st April 2026</span>
+          </div>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.02]">
+            <span className="text-[#FF4C00] text-xs font-mono tracking-wider">⏰</span>
+            <span className="text-zinc-300 text-xs md:text-sm font-medium tracking-wide">2:00 PM — 5:00 PM</span>
+          </div>
         </motion.div>
 
-        {/* Countdown Timer */}
+        {/* Opticode 2.0 Action Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="flex flex-col items-center gap-2 mb-6"
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-row items-center justify-center gap-4"
         >
-          <p className="text-gray-500 text-sm uppercase tracking-wider">Event Starts In</p>
-          <CountdownTimer />
+          <a 
+            href="#register" 
+            className="group flex items-center justify-center gap-3 bg-zinc-200 text-black px-6 py-3 rounded-full font-medium text-sm hover:bg-white transition-all w-40"
+          >
+            Showcase
+            <span className="bg-black text-white rounded-full p-1 transform group-hover:translate-x-1 transition-transform">
+              <ArrowRight className="w-3 h-3" />
+            </span>
+          </a>
+          <a 
+            href="#gallery" 
+            className="flex items-center justify-center bg-[#111111] text-zinc-300 px-6 py-3 rounded-full font-medium text-sm border border-white/5 hover:bg-[#222222] hover:text-white transition-all w-40"
+          >
+            Gallery
+          </a>
         </motion.div>
-
-
-      </motion.div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <motion.a
-          href="#themes"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-gray-500 hover:text-orange-400 transition-colors"
-        >
-          <span className="text-xs uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="w-5 h-5" />
-        </motion.a>
-      </motion.div>
+      </div>
     </section>
   );
 }
