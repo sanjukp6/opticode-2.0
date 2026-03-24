@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS registrations (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   usn TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
   semester INTEGER NOT NULL CHECK (semester BETWEEN 1 AND 8),
   section TEXT NOT NULL,
   branch TEXT NOT NULL,

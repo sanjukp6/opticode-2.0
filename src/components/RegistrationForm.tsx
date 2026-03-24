@@ -7,6 +7,7 @@ export function RegistrationForm() {
   const [formData, setFormData] = useState({
     name: '',
     usn: '',
+    email: '',
     semester: '',
     section: '',
     branch: '',
@@ -37,6 +38,7 @@ export function RegistrationForm() {
           {
             name: formData.name.trim(),
             usn: formData.usn.trim().toUpperCase(),
+            email: formData.email.trim().toLowerCase(),
             semester: parseInt(formData.semester),
             section: formData.section.trim().toUpperCase(),
             branch: formData.branch,
@@ -46,7 +48,13 @@ export function RegistrationForm() {
 
       if (supabaseError) {
         if (supabaseError.code === '23505') {
-          setError('This USN is already registered.');
+          if (supabaseError.message.includes('usn')) {
+            setError('This USN is already registered.');
+          } else if (supabaseError.message.includes('email')) {
+            setError('This email is already registered.');
+          } else {
+            setError('Registration data already exists.');
+          }
         } else {
           setError(supabaseError.message);
         }
@@ -56,7 +64,7 @@ export function RegistrationForm() {
 
       setIsSubmitting(false);
       setIsSuccess(true);
-      setFormData({ name: '', usn: '', semester: '', section: '', branch: '', hackerrank: '' });
+      setFormData({ name: '', usn: '', email: '', semester: '', section: '', branch: '', hackerrank: '' });
       setTimeout(() => setIsSuccess(false), 6000);
     } catch {
       setError('Network error. Please try again.');
@@ -165,6 +173,19 @@ export function RegistrationForm() {
                     onChange={handleChange}
                     className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white placeholder-zinc-700 focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all font-light uppercase"
                     placeholder="4BD21CS000"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-medium text-zinc-400 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white placeholder-zinc-700 focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all font-light"
+                    placeholder="you@college.edu"
                   />
                 </div>
 
