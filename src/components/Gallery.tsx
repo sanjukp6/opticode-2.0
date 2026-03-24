@@ -59,9 +59,9 @@ export function Gallery() {
                 transition={{ delay: idx * 0.1, duration: 0.5 }}
                 onTouchStart={() => setActiveIndex(idx)}
                 onTouchEnd={() => setActiveIndex(null)}
-                className={`relative overflow-hidden group rounded-2xl border bg-[#050505] shadow-xl cursor-pointer ${
+                className={`relative overflow-hidden group rounded-xl border-2 bg-[#050505] cursor-pointer ${
                   idx === 0 ? 'col-span-2 aspect-video lg:aspect-[21/9]' : 'col-span-1 aspect-video'
-                } ${isActive ? 'border-[#FF4C00]/60' : 'border-white/5'} transition-colors duration-300`}
+                } ${isActive ? 'border-[#FF4C00]' : 'border-transparent'} transition-colors duration-300`}
               >
                 {/* Grayscale by default, vibrant on hover (desktop) or touch-hold (mobile) */}
                 <img 
@@ -73,10 +73,10 @@ export function Gallery() {
                       : 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105'
                   }`}
                 />
-                <div className={`absolute inset-0 rounded-2xl pointer-events-none transition-colors duration-500 ${
+                <div className={`absolute inset-0 rounded-xl pointer-events-none transition-all duration-500 ${
                   isActive
-                    ? 'border-2 border-[#FF4C00]/60'
-                    : 'border border-white/10 group-hover:border-[#FF4C00]/30'
+                    ? 'border-2 border-[#FF4C00]'
+                    : 'border border-white/5 group-hover:border-2 group-hover:border-[#FF4C00]'
                 }`} />
                 
               </motion.div>

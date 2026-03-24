@@ -5,29 +5,29 @@ export function About() {
   const features = [
     {
       num: "01",
-      title: "Extreme Velocity",
-      desc: "Engineered to test your ability to synthesize logic under severe time constraints. Speed is survival.",
+      title: "Timed Challenge",
+      desc: "Solve problems under a strict time limit. Think fast, write clean, and ship working code before the clock runs out.",
       icon: <Zap className="w-6 h-6 text-[#FF4C00]" />,
       color: "#FF4C00"
     },
     {
       num: "02",
-      title: "Elite Cohort",
-      desc: "Battle-test your skills against the most distinguished computational minds at BIET and establish absolute dominance.",
+      title: "Compete with Peers",
+      desc: "Go head-to-head with fellow students from across departments. See where you stand on the leaderboard.",
       icon: <Users className="w-6 h-6 text-[#00F0FF]" />,
       color: "#00F0FF"
     },
     {
       num: "03",
-      title: "Language-Agnostic",
-      desc: "Deploy logic in your weapon of choice. Full execution support for completely unrestricted multi-language environments.",
+      title: "Any Language",
+      desc: "Use whichever programming language you're most comfortable with. C, C++, Python, Java — the choice is yours.",
       icon: <Code className="w-6 h-6 text-zinc-300" />,
       color: "#e4e4e7"
     },
     {
       num: "04",
-      title: "Verified Credentials",
-      desc: "Secure official certificates validating your participation and recognizing your elite computational achievements.",
+      title: "Certificates",
+      desc: "All participants receive official certificates. Top performers get special recognition and prizes.",
       icon: <Award className="w-6 h-6 text-[#FF4C00]" />,
       color: "#FF4C00"
     }
@@ -41,7 +41,7 @@ export function About() {
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: 'radial-gradient(circle at 1.5px 1.5px, rgba(255, 100, 0, 0.5) 1.5px, transparent 0)',
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 100, 0, 0.25) 1px, transparent 0)',
             backgroundSize: '40px 40px'
           }}
         />
@@ -59,11 +59,11 @@ export function About() {
            className="flex flex-col items-center mb-6 md:mb-16 px-4 sm:px-6 md:px-12 max-w-[85rem] mx-auto"
         >
           <div className="inline-flex items-center gap-3 px-5 py-1.5 rounded-full border border-white/5 bg-white/[0.02] mb-6 md:mb-8 shadow-[0_0_20px_rgba(255,76,0,0.05)]">
-             <span className="text-[#FF4C00] font-mono text-[10px] tracking-widest uppercase font-bold">THE PROTOCOL</span>
+             <span className="text-[#FF4C00] font-mono text-[10px] tracking-widest uppercase font-bold">HOW IT WORKS</span>
           </div>
 
           <p className="text-2xl md:text-4xl lg:text-5xl text-white font-medium text-center max-w-5xl mx-auto leading-tight md:leading-[1.15] tracking-tight">
-            The ultimate test of logic architecture. Solve complex computational challenges using the strict minimum syntactical footprint. <span className="text-zinc-500 italic font-serif tracking-normal">Every character counts.</span>
+            Solve coding problems with the shortest possible code. <span className="text-zinc-500 italic font-serif tracking-normal">Every character counts.</span>
           </p>
         </motion.div>
 
@@ -75,12 +75,12 @@ export function About() {
            transition={{ delay: 0.2 }}
            className="flex justify-center mb-6 md:mb-24 w-full px-4 sm:px-6 md:px-12 max-w-[85rem] mx-auto"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs tracking-widest font-mono text-zinc-500 border border-white/10 rounded-3xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 bg-[#0a0a0a]/50 backdrop-blur-md shadow-[0_0_40px_rgba(255,76,0,0.05)] w-full sm:w-auto">
-            <span className="text-xs">MINIMAL SYNTAX</span>
-            <span className="text-[#00F0FF] text-base">+</span>
-            <span className="text-xs">MAXIMAL EFFICIENCY</span>
-            <span className="text-[#FF4C00] text-base">=</span>
-            <span className="text-white font-medium text-xs">ELITE RANKING</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs tracking-widest font-mono text-zinc-500 border border-white/8 rounded-3xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 bg-white/[0.02] w-full sm:w-auto">
+            <span className="text-xs">FEWER CHARACTERS</span>
+            <span className="text-zinc-600 text-base">+</span>
+            <span className="text-xs">CORRECT OUTPUT</span>
+            <span className="text-zinc-600 text-base">=</span>
+            <span className="text-white font-medium text-xs">HIGHER RANK</span>
           </div>
         </motion.div>
 
@@ -93,7 +93,7 @@ export function About() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
               key={feature.num}
-              className="group relative border-b border-white/5 bg-[#000000] hover:bg-[#050505] transition-colors duration-500 cursor-crosshair overflow-hidden"
+              className="group relative border-b border-white/5 bg-[#000000] hover:bg-[#050505] transition-colors duration-300 overflow-hidden"
             >
                {/* Massive Ambient Background Glow on Hover */}
                <div 

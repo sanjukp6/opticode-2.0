@@ -24,7 +24,7 @@ export function Coordinators() {
             Meet the <span className="italic text-zinc-500">Board</span>
           </h2>
           <p className="text-zinc-500 font-light max-w-lg text-sm md:text-base">
-            The visionary architects backing the Opticode protocol structure.
+            Faculty and student coordinators behind Opticode 2.0.
           </p>
         </motion.div>
 
