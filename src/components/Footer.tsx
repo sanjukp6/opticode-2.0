@@ -31,7 +31,7 @@ export function Footer() {
            viewport={{ once: true }}
            className="text-zinc-500 text-sm"
         >
-          Built by <span className="text-white font-medium tracking-wide">Pixel Pioneers</span>
+          Crafted by <span className="text-white font-medium tracking-wide">Team Pixel Pioneers</span>
         </motion.div>
 
         {/* Right Side: Social Links */}

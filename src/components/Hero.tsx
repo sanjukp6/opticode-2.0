@@ -64,7 +64,7 @@ export function Hero() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.15 }}
-          className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-wide uppercase text-white text-center mb-2 md:mb-6 leading-tight px-2"
+          className="text-sm sm:text-xl md:text-2xl lg:text-3xl font-bold tracking-tight text-white text-center mb-2 md:mb-6 leading-tight px-2"
         >
           Bapuji Institute of Engineering and Technology
         </motion.h2>
