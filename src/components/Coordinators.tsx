@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Phone } from 'lucide-react';
 
 const coordinators = [
   { name: 'Dr. Nirmala C R', role: 'Head of the Department', dept: 'CSE' },
@@ -46,6 +47,21 @@ export function Coordinators() {
             </motion.div>
           ))}
         </div>
+
+        {/* Support Contact */}
+        <motion.div
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           transition={{ delay: 0.4 }}
+           className="mt-12 md:mt-16 flex justify-center"
+        >
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-[#050505] shadow-[0_0_20px_rgba(255,76,0,0.05)] hover:border-[#FF4C00]/50 hover:shadow-[0_0_30px_rgba(255,76,0,0.15)] transition-all duration-300">
+            <Phone className="w-4 h-4 text-[#FF4C00]" />
+            <span className="text-zinc-400 text-sm">Have Questions?</span>
+            <a href="tel:+918277257286" className="text-white font-medium tracking-wide text-sm hover:text-[#FF4C00] transition-colors">+91 82772 57286</a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
