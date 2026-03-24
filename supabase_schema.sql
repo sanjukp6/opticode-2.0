@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS registrations (
   usn TEXT NOT NULL UNIQUE,
   semester INTEGER NOT NULL CHECK (semester BETWEEN 1 AND 8),
   section TEXT NOT NULL,
+  branch TEXT NOT NULL,
   hackerrank TEXT NOT NULL,
   registered_at TIMESTAMPTZ DEFAULT now()
 );

@@ -9,6 +9,7 @@ export function RegistrationForm() {
     usn: '',
     semester: '',
     section: '',
+    branch: '',
     hackerrank: '',
   });
 
@@ -29,7 +30,8 @@ export function RegistrationForm() {
             name: formData.name.trim(),
             usn: formData.usn.trim().toUpperCase(),
             semester: parseInt(formData.semester),
-            section: formData.section,
+            section: formData.section.trim().toUpperCase(),
+            branch: formData.branch,
             hackerrank: formData.hackerrank.trim(),
           },
         ]);
@@ -46,7 +48,7 @@ export function RegistrationForm() {
 
       setIsSubmitting(false);
       setIsSuccess(true);
-      setFormData({ name: '', usn: '', semester: '', section: '', hackerrank: '' });
+      setFormData({ name: '', usn: '', semester: '', section: '', branch: '', hackerrank: '' });
       setTimeout(() => setIsSuccess(false), 6000);
     } catch {
       setError('Network error. Please try again.');
@@ -166,6 +168,24 @@ export function RegistrationForm() {
                     </select>
                     </div>
                     <div>
+                    <label className="block text-xs font-medium text-zinc-400 mb-2">Branch</label>
+                    <select
+                        name="branch"
+                        required
+                        value={formData.branch}
+                        onChange={handleChange}
+                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all appearance-none font-light"
+                    >
+                        <option value="" disabled className="bg-[#111]">Select</option>
+                        {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC'].map(branch => (
+                        <option key={branch} value={branch} className="bg-[#111]">{branch}</option>
+                        ))}
+                    </select>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
                     <label className="block text-xs font-medium text-zinc-400 mb-2">Section</label>
                     <input
                         type="text"
@@ -177,19 +197,18 @@ export function RegistrationForm() {
                         placeholder="e.g. A"
                     />
                     </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-medium text-zinc-400 mb-2">HackerRank Username</label>
-                  <input
-                    type="text"
-                    name="hackerrank"
-                    required
-                    value={formData.hackerrank}
-                    onChange={handleChange}
-                    className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white placeholder-zinc-700 focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all font-light"
-                    placeholder="@username"
-                  />
+                    <div>
+                    <label className="block text-xs font-medium text-zinc-400 mb-2">HackerRank Username</label>
+                    <input
+                        type="text"
+                        name="hackerrank"
+                        required
+                        value={formData.hackerrank}
+                        onChange={handleChange}
+                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white placeholder-zinc-700 focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all font-light"
+                        placeholder="@username"
+                    />
+                    </div>
                 </div>
               </div>
 
