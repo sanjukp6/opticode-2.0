@@ -96,8 +96,8 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="max-w-xl mx-auto mb-5 md:mb-8 px-4"
         >
-          <p className="text-sm md:text-base text-zinc-500 leading-relaxed">
-            Write clean, functional code with the fewest characters possible. Solve problems, optimize your logic, and compete for the top spot.
+          <p className="max-w-xl mx-auto text-zinc-500 text-sm md:text-lg mb-8 md:mb-12 font-light leading-relaxed">
+            Write clean, functional code with the fewest lines possible. Solve problems, optimize your logic, and compete for the top spot.
           </p>
         </motion.div>
 

@@ -76,7 +76,7 @@ export function About() {
            className="flex justify-center mb-6 md:mb-24 w-full px-4 sm:px-6 md:px-12 max-w-[85rem] mx-auto"
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 border border-white/10 rounded-2xl p-6 bg-white/[0.03] border-l-2 border-l-orange-500 pl-6 shadow-xl w-full sm:w-auto">
-            <span className="text-xs tracking-widest text-gray-500 font-mono">FEWER CHARACTERS</span>
+            <span className="text-xs tracking-widest text-gray-500 font-mono">FEWER LINES</span>
             <span className="text-gray-600 text-lg">+</span>
             <span className="text-xs tracking-widest text-gray-500 font-mono">CORRECT OUTPUT</span>
             <span className="text-gray-600 text-lg">=</span>
