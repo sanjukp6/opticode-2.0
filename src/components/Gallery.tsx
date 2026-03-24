@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 
 const images = [
   '/gallery/opticode-1.jpg',
@@ -10,7 +9,6 @@ const images = [
 ];
 
 export function Gallery() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <section id="gallery" className="py-8 md:py-32 bg-[#000000] relative border-t border-[#111] overflow-hidden">
@@ -49,7 +47,6 @@ export function Gallery() {
         {/* Zenith Style Masonry / Grid */}
         <div className="grid grid-cols-2 gap-4 md:gap-6">
            {images.map((src, idx) => {
-             const isActive = activeIndex === idx;
              return (
               <motion.div 
                 key={idx}
@@ -57,27 +54,16 @@ export function Gallery() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.5 }}
-                onTouchStart={() => setActiveIndex(idx)}
-                onTouchEnd={() => setActiveIndex(null)}
-                className={`relative overflow-hidden group rounded-xl border-2 bg-[#050505] cursor-pointer ${
+                className={`relative overflow-hidden group rounded-xl border-2 border-[#FF4C00] bg-[#050505] cursor-pointer ${
                   idx === 0 ? 'col-span-2 aspect-video lg:aspect-[21/9]' : 'col-span-1 aspect-video'
-                } ${isActive ? 'border-[#FF4C00]' : 'border-transparent'} transition-colors duration-300`}
+                } transition-all duration-300 shadow-[0_0_15px_rgba(255,76,0,0.15)] hover:shadow-[0_0_25px_rgba(255,76,0,0.3)]`}
               >
-                {/* Grayscale by default, vibrant on hover (desktop) or touch-hold (mobile) */}
+                {/* Always vibrant, scales up slightly on hover */}
                 <img 
                   src={src} 
                   alt={`Opticode 1.0 Archive ${idx + 1}`} 
-                  className={`w-full h-full object-cover transition-all duration-700 ease-out transform ${
-                    isActive
-                      ? 'grayscale-0 opacity-100 scale-105'
-                      : 'grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105'
-                  }`}
+                  className="w-full h-full object-cover transition-all duration-700 ease-out transform scale-100 group-hover:scale-105"
                 />
-                <div className={`absolute inset-0 rounded-xl pointer-events-none transition-all duration-500 ${
-                  isActive
-                    ? 'border-2 border-[#FF4C00]'
-                    : 'border border-white/5 group-hover:border-2 group-hover:border-[#FF4C00]'
-                }`} />
                 
               </motion.div>
              );
