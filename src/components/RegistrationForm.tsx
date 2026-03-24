@@ -1,6 +1,6 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useState } from 'react';
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, ChevronDown } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 
 export function RegistrationForm() {
@@ -17,10 +17,18 @@ export function RegistrationForm() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [activeDropdown, setActiveDropdown] = useState<'semester' | 'branch' | null>(null);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError(null);
+    
+    // Validation for HackerRank
+    let hackerrank = formData.hackerrank.trim();
+    if (hackerrank && !hackerrank.startsWith('@')) {
+      hackerrank = `@${hackerrank}`;
+    }
     
     try {
       const { error: supabaseError } = await supabase
@@ -32,7 +40,7 @@ export function RegistrationForm() {
             semester: parseInt(formData.semester),
             section: formData.section.trim().toUpperCase(),
             branch: formData.branch,
-            hackerrank: formData.hackerrank.trim(),
+            hackerrank: hackerrank,
           },
         ]);
 
@@ -56,11 +64,20 @@ export function RegistrationForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value
     }));
+    if (error) setError(null);
+  };
+
+  const handleDropdownSelect = (name: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+    setActiveDropdown(null);
     if (error) setError(null);
   };
 
@@ -152,35 +169,76 @@ export function RegistrationForm() {
                 </div>
 
                 <div className="grid grid-cols-2 gap-6">
-                    <div>
-                    <label className="block text-xs font-medium text-zinc-400 mb-2">Semester</label>
-                    <select
-                        name="semester"
-                        required
-                        value={formData.semester}
-                        onChange={handleChange}
-                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all appearance-none font-light"
-                    >
-                        <option value="" disabled className="bg-[#111]">Select</option>
-                        {[1,2,3,4,5,6,7,8].map(sem => (
-                        <option key={sem} value={sem} className="bg-[#111]">Semester 0{sem}</option>
-                        ))}
-                    </select>
+                    {/* Semester Dropdown */}
+                    <div className="relative">
+                      <label className="block text-xs font-medium text-zinc-400 mb-2">Semester</label>
+                      <button
+                        type="button"
+                        onClick={() => setActiveDropdown(activeDropdown === 'semester' ? null : 'semester')}
+                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white flex items-center justify-between focus:outline-none focus:border-[#FF4C00]/50 transition-all font-light"
+                      >
+                        <span className={formData.semester ? 'text-white' : 'text-zinc-700'}>
+                          {formData.semester ? `Semester 0${formData.semester}` : 'Select'}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 ${activeDropdown === 'semester' ? 'rotate-180' : ''}`} />
+                      </button>
+                      
+                      <AnimatePresence>
+                        {activeDropdown === 'semester' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute z-50 mt-1 w-full bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden shadow-xl"
+                          >
+                            {[1, 2, 3, 4, 5, 6, 7, 8].map((sem) => (
+                              <div
+                                key={sem}
+                                onClick={() => handleDropdownSelect('semester', sem.toString())}
+                                className="px-4 py-2.5 hover:bg-orange-500/10 hover:text-orange-400 cursor-pointer text-sm text-gray-300 transition-colors"
+                              >
+                                Semester 0{sem}
+                              </div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
-                    <div>
-                    <label className="block text-xs font-medium text-zinc-400 mb-2">Branch</label>
-                    <select
-                        name="branch"
-                        required
-                        value={formData.branch}
-                        onChange={handleChange}
-                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white focus:outline-none focus:border-[#FF4C00]/50 focus:bg-[#111] transition-all appearance-none font-light"
-                    >
-                        <option value="" disabled className="bg-[#111]">Select</option>
-                        {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC'].map(branch => (
-                        <option key={branch} value={branch} className="bg-[#111]">{branch}</option>
-                        ))}
-                    </select>
+
+                    {/* Branch Dropdown */}
+                    <div className="relative">
+                      <label className="block text-xs font-medium text-zinc-400 mb-2">Branch</label>
+                      <button
+                        type="button"
+                        onClick={() => setActiveDropdown(activeDropdown === 'branch' ? null : 'branch')}
+                        className="w-full px-5 py-4 bg-[#0a0a0a] border border-[#222] rounded-xl text-white flex items-center justify-between focus:outline-none focus:border-[#FF4C00]/50 transition-all font-light"
+                      >
+                        <span className={formData.branch ? 'text-white' : 'text-zinc-700'}>
+                          {formData.branch || 'Select'}
+                        </span>
+                        <ChevronDown className={`w-4 h-4 text-zinc-500 transition-transform duration-300 ${activeDropdown === 'branch' ? 'rotate-180' : ''}`} />
+                      </button>
+
+                      <AnimatePresence>
+                        {activeDropdown === 'branch' && (
+                          <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            className="absolute z-50 mt-1 w-full bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden shadow-xl"
+                          >
+                            {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC'].map((branch) => (
+                              <div
+                                key={branch}
+                                onClick={() => handleDropdownSelect('branch', branch)}
+                                className="px-4 py-2.5 hover:bg-orange-500/10 hover:text-orange-400 cursor-pointer text-sm text-gray-300 transition-colors"
+                              >
+                                {branch}
+                              </div>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
                     </div>
                 </div>
 
