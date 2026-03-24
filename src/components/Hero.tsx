@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Calendar, Clock } from 'lucide-react';
 
 export function Hero() {
   return (
@@ -106,15 +106,15 @@ export function Hero() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="flex flex-wrap items-center justify-center gap-3 md:gap-4 mb-5 md:mb-10 px-4"
+          className="flex flex-wrap items-center justify-center gap-3 mt-6 mb-5 md:mb-10 px-4"
         >
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/8 bg-white/[0.02]">
-            <span className="text-xs">📅</span>
-            <span className="text-zinc-300 text-xs md:text-sm font-medium">1st April 2026</span>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-orange-500/40 bg-white/5 text-sm">
+            <Calendar className="w-4 h-4 text-[#FF4C00]" />
+            <span className="text-zinc-200 font-medium">1st April 2026</span>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/8 bg-white/[0.02]">
-            <span className="text-xs">⏰</span>
-            <span className="text-zinc-300 text-xs md:text-sm font-medium">2:00 PM — 5:00 PM</span>
+          <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-sm">
+            <Clock className="w-4 h-4 text-zinc-400" />
+            <span className="text-zinc-400 font-medium">2:00 PM — 5:00 PM</span>
           </div>
         </motion.div>
 

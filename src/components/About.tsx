@@ -67,7 +67,7 @@ export function About() {
           </p>
         </motion.div>
 
-        {/* Responsive Formula Pill */}
+        {/* Responsive Formula Box (Refined) */}
         <motion.div
            initial={{ opacity: 0, y: 20 }}
            whileInView={{ opacity: 1, y: 0 }}
@@ -75,12 +75,14 @@ export function About() {
            transition={{ delay: 0.2 }}
            className="flex justify-center mb-6 md:mb-24 w-full px-4 sm:px-6 md:px-12 max-w-[85rem] mx-auto"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-[10px] sm:text-xs tracking-widest font-mono text-zinc-500 border border-white/8 rounded-3xl sm:rounded-full px-6 sm:px-8 py-3 sm:py-4 bg-white/[0.02] w-full sm:w-auto">
-            <span className="text-xs">FEWER CHARACTERS</span>
-            <span className="text-zinc-600 text-base">+</span>
-            <span className="text-xs">CORRECT OUTPUT</span>
-            <span className="text-zinc-600 text-base">=</span>
-            <span className="text-white font-medium text-xs">HIGHER RANK</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 border border-white/10 rounded-2xl p-6 bg-white/[0.03] border-l-2 border-l-orange-500 pl-6 shadow-xl w-full sm:w-auto">
+            <span className="text-xs tracking-widest text-gray-500 font-mono">FEWER CHARACTERS</span>
+            <span className="text-gray-600 text-lg">+</span>
+            <span className="text-xs tracking-widest text-gray-500 font-mono">CORRECT OUTPUT</span>
+            <span className="text-gray-600 text-lg">=</span>
+            <div className="inline-block border-b-2 border-orange-500 pb-1">
+              <span className="text-white font-bold text-lg tracking-widest font-mono">HIGHER RANK</span>
+            </div>
           </div>
         </motion.div>
 
