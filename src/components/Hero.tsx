@@ -12,8 +12,8 @@ export function Hero() {
         <div 
           className="absolute inset-0"
           style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 100, 0, 0.4) 1px, transparent 0)',
-            backgroundSize: '48px 48px'
+            backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255, 100, 0, 0.6) 1px, transparent 0)',
+            backgroundSize: '24px 24px'
           }}
         />
         <div className="absolute inset-0 bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black_75%)]" />
