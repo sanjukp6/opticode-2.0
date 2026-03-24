@@ -42,7 +42,7 @@ export function Coordinators() {
               <div className="mb-6 md:mb-8">
                 <span className="bg-white/5 text-zinc-400 text-[9px] md:text-[10px] font-mono px-2 py-1 rounded tracking-wide uppercase">{coordinator.dept}</span>
               </div>
-              <h3 className="text-base md:text-xl font-medium text-white mb-1 leading-tight">{coordinator.name}</h3>
+              <h3 className="text-[13px] sm:text-base md:text-xl font-medium text-white mb-1 leading-tight whitespace-nowrap">{coordinator.name}</h3>
               <p className="text-zinc-500 text-[10px] md:text-xs tracking-wide leading-snug">{coordinator.role}</p>
             </motion.div>
           ))}
@@ -56,10 +56,10 @@ export function Coordinators() {
            transition={{ delay: 0.4 }}
            className="mt-12 md:mt-16 flex justify-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-white/10 bg-[#050505] shadow-[0_0_20px_rgba(255,76,0,0.05)] hover:border-[#FF4C00]/50 hover:shadow-[0_0_30px_rgba(255,76,0,0.15)] transition-all duration-300">
-            <Phone className="w-4 h-4 text-[#FF4C00]" />
-            <span className="text-zinc-400 text-sm">Have Questions?</span>
-            <a href="tel:+918277257286" className="text-white font-medium tracking-wide text-sm hover:text-[#FF4C00] transition-colors">+91 82772 57286</a>
+          <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2.5 sm:py-3 rounded-full border border-white/10 bg-[#050505] shadow-[0_0_20px_rgba(255,76,0,0.05)] hover:border-[#FF4C00]/50 hover:shadow-[0_0_30px_rgba(255,76,0,0.15)] transition-all duration-300 whitespace-nowrap">
+            <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FF4C00]" />
+            <span className="text-zinc-400 text-xs sm:text-sm">Have Questions?</span>
+            <a href="tel:+918277257286" className="text-white font-medium tracking-wide text-xs sm:text-sm hover:text-[#FF4C00] transition-colors">+91 82772 57286</a>
           </div>
         </motion.div>
       </div>
