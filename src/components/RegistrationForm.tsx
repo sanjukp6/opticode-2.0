@@ -127,7 +127,7 @@ export function RegistrationForm() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="bg-[#050505] border border-white/5 rounded-3xl p-8 md:p-12 relative overflow-hidden"
+          className="bg-[#050505] border border-white/5 rounded-3xl p-8 md:p-12 relative overflow-visible"
         >
           {isSuccess ? (
              <motion.div 
@@ -228,7 +228,7 @@ export function RegistrationForm() {
 
                     {/* Branch Dropdown */}
                     <div className="relative">
-                      <label className="block text-xs font-medium text-zinc-400 mb-2">Branch</label>
+                      <label className="block text-xs font-medium text-zinc-400 mb-2">Dept</label>
                       <button
                         type="button"
                         onClick={() => setActiveDropdown(activeDropdown === 'branch' ? null : 'branch')}
@@ -246,9 +246,10 @@ export function RegistrationForm() {
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
-                            className="absolute z-50 mt-1 w-full bg-[#1a1a1a] border border-white/10 rounded-xl overflow-hidden shadow-xl"
+                            className="absolute z-50 mt-1 w-full bg-[#1a1a1a] border border-white/10 rounded-xl overflow-visible shadow-xl"
                           >
-                            {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC'].map((branch) => (
+                            <div className="max-h-60 overflow-y-auto">
+                              {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC', 'ME', 'CV'].map((branch) => (
                               <div
                                 key={branch}
                                 onClick={() => handleDropdownSelect('branch', branch)}
@@ -257,6 +258,7 @@ export function RegistrationForm() {
                                 {branch}
                               </div>
                             ))}
+                            </div>
                           </motion.div>
                         )}
                       </AnimatePresence>
