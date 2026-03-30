@@ -249,7 +249,7 @@ export function RegistrationForm() {
                             className="absolute z-50 mt-1 w-full bg-[#1a1a1a] border border-white/10 rounded-xl overflow-visible shadow-xl"
                           >
                             <div className="max-h-60 overflow-y-auto">
-                              {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC', 'ME', 'CV'].map((branch) => (
+                              {['CSE', 'ISE', 'AIML', 'CSD', 'CSBS', 'CSDS', 'EC', 'ME', 'CV', 'EEE'].map((branch) => (
                               <div
                                 key={branch}
                                 onClick={() => handleDropdownSelect('branch', branch)}
